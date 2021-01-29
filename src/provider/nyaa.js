@@ -18,9 +18,7 @@ class Nyaa extends Base {
     this.endpoint = process.env.ANIMED_NYAA_ENDPOINT;
   }
   
-  async getLink() {
-    const next = await this.anime.getNextEp();
-
+  async getLinkNext(next) {
     const feed = await new Parser().parseURL(this.url(next));
     const ep = feed.items[0];
 

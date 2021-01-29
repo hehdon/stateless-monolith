@@ -4,8 +4,18 @@ class Base {
     this.config = config;
   }
 
-  getLink() {
-    throw new Error('getLink not implemented');
+  async getLink() {
+    const next = await this.anime.getNextEp();
+
+    if (typeof next === 'undefined') {
+      return undefined;
+    }
+
+    return this.getLinkNext(next);
+  }
+
+  getLinkNext(next) {
+    throw new Error('getLinkNext not implemented');
   }
 }
 

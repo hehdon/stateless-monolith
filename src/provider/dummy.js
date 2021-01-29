@@ -8,13 +8,7 @@ class Dummy extends Base {
     payload: Joi.any().required(),
   });
   
-  async getLink() {
-    const next = await this.anime.getNextEp();
-
-    if (typeof next === 'undefined') {
-      return undefined;
-    }
-
+  getLinkNext(next) {
     return {
       type: this.config.downloader,
       number: next,
