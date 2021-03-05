@@ -16,13 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anidaem/stateless-monolith.git"
+    "url": "git+https://github.com/hehdon/stateless-monolith.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/anidaem/stateless-monolith/issues"
+    "url": "https://github.com/hehdon/stateless-monolith/issues"
   },
-  "homepage": "https://github.com/anidaem/stateless-monolith#readme"
+  "homepage": "https://github.com/hehdon/stateless-monolith#readme"
 }
