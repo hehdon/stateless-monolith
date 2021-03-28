@@ -1,40 +1,47 @@
-const http = require('http');
-const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const mime = require('mime');
+const fetch = require('node-fetch');
 const Base = require('./base');
 
-class Torrent extends Base {
+class Http extends Base {
   static slug = 'http';
 
   download() {
-    const url = new URL(this.payload);
-
-    if (!['http:', 'https:'].includes(url.protocol)) {
-      throw new Error(`Invalid protocol ${url.protocol}`);
-    }
-
-    return new Promise((resolve, reject) => {
-      (url.protocol === 'http:' ? http : https).get(url, res => {
-        if (res.statusCode >= 400) {
-          return reject();
+    const url = typeof this.payload === 'string'
+      ? this.payload
+      : this.payload.url;
+    
+    return fetch(url, typeof this.payload === 'object' ? this.payload : {})
+      .then(res => new Promise((resolve, reject) => {
+        if (!res.ok) {
+          throw new Error(`{${res.status}} Unable to download ${url}`);
         }
 
-        const ext = path.parse(url.pathname).ext ?? `.${mime.getExtension(res.headers['content-type'])}`;
-        const file = path.join(
+        const ext = path.parse(new URL(url).pathname).ext
+          || `.${mime.getExtension(res.headers.get('content-type'))}`;
+
+        this.filename = path.join(
           os.tmpdir(), 
-          'animed-http-downloader' + ext
+          'hehdon-http-downloader' + ext
         );
-        
-        res.on('error', reject);
-        res.pipe(fs.createWriteStream(file))
+
+        res.body.on('error', reject);
+        res.body.pipe(fs.createWriteStream(this.filename))
           .on('error', reject)
-          .on('finish', () => resolve(file));
-      });
-    });
+          .on('finish', () => resolve(this.filename));
+      }));
+  }
+
+  clean() {
+    if (!this.filename) {
+      return super.clean();
+    }
+
+    return fs.promises.unlink(this.filename)
+      .catch(() => true);
   }
 }
 
-module.exports = Torrent;
+module.exports = Http;

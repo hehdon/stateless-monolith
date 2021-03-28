@@ -6,11 +6,11 @@
   "dependencies": {
     "joi": "^17.3.0",
     "mime": "^2.5.0",
+    "node-fetch": "^2.6.1",
     "rss-parser": "^3.10.0",
     "webtorrent": "^0.112.1",
     "yaml": "^1.10.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
