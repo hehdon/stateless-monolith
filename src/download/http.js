@@ -13,7 +13,7 @@ class Http extends Base {
       ? this.payload
       : this.payload.url;
     
-    return fetch(url, typeof this.payload === 'object' ? this.payload : {})
+    return fetch(new URL(url), typeof this.payload === 'object' ? this.payload : {})
       .then(res => new Promise((resolve, reject) => {
         if (!res.ok) {
           throw new Error(`{${res.status}} Unable to download ${url}`);
