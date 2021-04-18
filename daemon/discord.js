@@ -13,7 +13,7 @@ export async function discord(entry, next) {
 
   return fetch(process.env.HEHDON_DISCORD, {
     method: 'POST',
-    body,
+    body: JSON.stringify(body),
     headers: { 'Content-Type': 'application/json' },
   })
     .then(r => { if (!r.ok) throw `{${r.status}} Faild to send Discord notification` });
