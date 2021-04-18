@@ -1,0 +1,10 @@
+README.md
+LICENSE
+Dockerfile
+.dockerignore
+.gitignore
+.git
+
+node_modules
+download
+config.yml
