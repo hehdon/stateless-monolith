@@ -34,7 +34,7 @@ export class Kernel {
       return;
     }
 
-    for (const entry of config.anime) {
+    for (const entry of config) {
       const logger = this.logger.extends(Logger.c.blue(`[${entry.name}]`));
       logger.debug('Start check');
 
