@@ -9,4 +9,5 @@ RUN npm i
 
 COPY . .
 
-CMD [ "node", "index.js" ]
+ENTRYPOINT [ "node", "index.js" ]
+CMD [ "cron" ]
