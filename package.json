@@ -24,7 +24,7 @@
     "mime": "^2.5.2",
     "node-fetch": "^2.6.1",
     "rss-parser": "^3.12.0",
-    "webtorrent": "^0.117.0",
+    "webtorrent": "^1.0.1",
     "yaml": "^1.10.2"
   }
 }
