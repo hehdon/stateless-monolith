@@ -26,7 +26,7 @@ export class Subsplease extends Base {
     return {
       type: 'torrent',
       number: next,
-      filename: this.anime.getFilename(next),
+      filename: this.getFilename(next),
       payload: link,
     };
   }
