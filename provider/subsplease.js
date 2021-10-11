@@ -8,7 +8,7 @@ export class Subsplease extends Base {
 
   static endpoint = process.env.HEHDON_SUBSPLEASE_ENDPOINT;
   
-  async getLinkNext(next) {
+  async getNextLink(next) {
     const url = new URL(Subsplease.endpoint);
     url.searchParams.append('f', 'show');
     url.searchParams.append('tz', 'Europe/Paris');

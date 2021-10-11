@@ -11,7 +11,7 @@ export class Nyaa extends Base {
 
   static endpoint = process.env.HEHDON_NYAA_ENDPOINT;
   
-  async getLinkNext(next) {
+  async getNextLink(next) {
     const feed = await new Parser().parseURL(this.url(next));
     const ep = feed.items[0];
 

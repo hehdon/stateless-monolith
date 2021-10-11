@@ -33,7 +33,7 @@ export class Base {
   }
 
   getNextLink(next) {
-    throw new Error('getLinkNext not implemented');
+    throw new Error('getNextLink not implemented');
   }
 
   getDownloaded() {
