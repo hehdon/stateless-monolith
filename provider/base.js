@@ -28,7 +28,7 @@ export class Base {
     return {
       filename: this.getFilename(next),
       number: next,
-      ...this.getNextLink(next),
+      ...await this.getNextLink(next),
     };
   }
 
