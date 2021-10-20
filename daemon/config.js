@@ -13,7 +13,7 @@ const createSchema = (providers = []) => Joi.array().items(
     }),
     storage: Joi.object({
       dir: Joi.string().required(),
-      file: Joi.string()
+      prefix: Joi.string()
     }).required(),
     ...Object.fromEntries(providers.map(v => [v.slug, v.schema])),
   }).xor(...providers.map(v => v.slug))

@@ -11,7 +11,7 @@ export class Base {
       throw new Error(`Invalid path "${config.storage.dir}".`);
     }
 
-    this._filename = config.storage.dir.split('/')[0];
+    this._filename = config.storage.prefix ?? (config.storage.dir.split('/')[0] + '-');
     this.logger = logger;
   }
 
@@ -25,10 +25,15 @@ export class Base {
     this.logger = this.logger.extends(this.logger.c.blueBright(`[Episode ${next}]`));
     this.logger.debug(`Next to download: ${next}`);
 
+    const data = await this.getNextLink(next);
+    if (data === undefined) {
+      return undefined;
+    }
+
     return {
       filename: this.getFilename(next),
       number: next,
-      ...await this.getNextLink(next),
+      ...data,
     };
   }
 
@@ -43,7 +48,7 @@ export class Base {
   async _getDownloadedEp() {
     return (await this.getDownloaded())
       .map(v => path.parse(v).name)
-      .map(v => v.replace(this._filename + '-', ''));
+      .map(v => v.replace(this._filename, ''));
   }
 
   async getNextEp() {
@@ -73,7 +78,7 @@ export class Base {
   }
 
   getFilename(ep) {
-    return `${this._filename}-${ep}`;
+    return `${this._filename}${ep}`;
   }
 
   getAbsolutePath(filename) {
