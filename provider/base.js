@@ -2,9 +2,11 @@ import fs from 'fs';
 import path from 'path';
 
 export class Base {
-  constructor({ config, logger, root }) {
+  constructor({ config, cache, logger, root }) {
     this._config = config;
     this.config = config[this.constructor.slug];
+
+    this.cache = cache;
 
     this._root = path.join(root, config.storage.dir);
     if (!this._root.startsWith(root)) {
@@ -75,6 +77,16 @@ export class Base {
         return j;
       }
     }
+  }
+
+  async getNextMissing(eps) {
+    const start = this._config.filter?.start ?? 1;
+    const end = this._config.filter?.end ?? Infinity;
+    const exclude = this._config.filter?.exclude?.map(v => v.toString());
+
+    const downloaded = await this._getDownloadedEp();
+
+    return eps.find(ep => ep >= start && ep <= end && !exclude?.includes(ep.toString()) && !downloaded?.includes(ep.toString()));
   }
 
   getFilename(ep) {

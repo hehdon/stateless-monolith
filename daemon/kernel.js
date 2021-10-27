@@ -25,6 +25,7 @@ export class Kernel {
 
   async update() {
     this.logger.debug('Start update');
+    this.cache = new WeakMap();
 
     let config;
     try {
@@ -60,6 +61,7 @@ export class Kernel {
     }
 
     this.logger.debug('No more entries');
+    delete this.cache;
   }
 
   async process(entry, logger) {
@@ -116,8 +118,12 @@ export class Kernel {
       throw null;
     }
 
+    const cache = this.cache.get(Provider) ?? {};
+    this.cache.set(Provider, cache);
+
     return new Provider({
       config: entry,
+      cache,
       logger: logger.extends(Logger.c.green(`[${Provider.slug}]`)),
       root: Kernel.root,
     });

@@ -12,8 +12,12 @@ export class HTTP extends Base {
     const url = typeof this.payload === 'string' || this.payload instanceof URL
       ? this.payload
       : this.payload.url;
-    
-    return fetch(new URL(url), typeof this.payload === 'object' ? this.payload : {})
+
+    const options = typeof this.payload === 'object' ? this.payload : {};
+    options.headers ??= {};
+    options.headers['Content-Type'] ??= 'animed';
+
+    return fetch(new URL(url), options)
       .then(res => new Promise((resolve, reject) => {
         if (!res.ok) {
           throw `{${res.status}} Unable to download ${url}`;
