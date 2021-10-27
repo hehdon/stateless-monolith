@@ -25,6 +25,7 @@ export class Zogwine extends Base {
     return {
       type: 'http',
       filename: this.getFilename(next),
+      number: next,
       payload: {
         url: new URL(path.join(Zogwine.endpoint, this.config.path, nextEp.path)).toString(),
         headers: {'Content-Type': `animed (${this._config.name}; s${this.config.season}; e${next})`},
