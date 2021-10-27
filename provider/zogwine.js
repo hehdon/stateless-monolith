@@ -28,7 +28,7 @@ export class Zogwine extends Base {
       number: next,
       payload: {
         url: new URL(path.join(Zogwine.endpoint, this.config.path, nextEp.path)).toString(),
-        headers: {'Content-Type': `animed (${this._config.name}; s${this.config.season}; e${next})`},
+        headers: {'User-Agent': `animed (${this._config.name}; s${this.config.season}; e${next})`},
       },
     }
   }
@@ -40,7 +40,7 @@ export class Zogwine extends Base {
     }
 
     const url = new URL(realPath);
-    const page = await fetch(url, { headers: {'Content-Type': `animed (${this._config.name}; s${this.config.season})`} }).then(r => r.text());
+    const page = await fetch(url, { headers: {'User-Agent': `animed (${this._config.name}; s${this.config.season})`} }).then(r => r.text());
 
     const regex = /<a href="([^"]+)">/g;
     const files = [];

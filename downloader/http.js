@@ -15,7 +15,7 @@ export class HTTP extends Base {
 
     const options = typeof this.payload === 'object' ? this.payload : {};
     options.headers ??= {};
-    options.headers['Content-Type'] ??= 'animed';
+    options.headers['User-Agent'] ??= 'animed';
 
     return fetch(new URL(url), options)
       .then(res => new Promise((resolve, reject) => {
