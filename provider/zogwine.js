@@ -21,7 +21,6 @@ export class Zogwine extends Base {
     }
 
     const nextEp = eps.find(v => v.season === this.config.season && v.episode === next);
-    console.log(nextEp);
 
     return {
       type: 'http',
