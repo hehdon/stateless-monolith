@@ -34,11 +34,12 @@ export class Zogwine extends Base {
   }
 
   async fetchIndexOf(p = '/') {
-    if (this.cache[this.config.path]) {
-      return this.cache[this.config.path];
+    const realPath = path.join(Zogwine.endpoint, this.config.path, p);
+    if (this.cache[realPath]) {
+      return this.cache[realPath];
     }
 
-    const url = new URL(path.join(Zogwine.endpoint, this.config.path, p));
+    const url = new URL(realPath);
     const page = await fetch(url, { headers: {'Content-Type': `animed (${this._config.name}; s${this.config.season})`} }).then(r => r.text());
 
     const regex = /<a href="([^"]+)">/g;
@@ -59,7 +60,7 @@ export class Zogwine extends Base {
       }
     }
 
-    this.cache[this.config.path] = files;
+    this.cache[realPath] = files;
     return files;
   }
 }

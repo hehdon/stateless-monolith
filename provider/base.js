@@ -50,7 +50,8 @@ export class Base {
   async _getDownloadedEp() {
     return (await this.getDownloaded())
       .map(v => path.parse(v).name)
-      .map(v => v.replace(this._filename, ''));
+      .map(v => v.replace(this._filename, ''))
+      .map(v => Number(v).toString());
   }
 
   async getNextEp() {
